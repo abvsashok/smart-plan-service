@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: knx_planner
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/knx_planner
+    password: password
+    jackson:
+      serialization:
+        FAIL_ON_EMPTY_BEANS: false
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL8Dialect
+          jdbc:
+            lob:
+              non_contextual_creation: 'true'
+      hibernate:
+        ddl-auto: update
+      show-sql: false
+jwt:
+  secret: "replace-with-a-very-long-random-secret-at-least-32-chars"
+  expiration-ms: 360000000
