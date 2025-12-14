@@ -5,9 +5,9 @@ spring:
 #    username: root
 #    url: jdbc:mysql://localhost:3306/knx_planner
 #    password: password
-    username: ${DB_USERNAME}
+    username: lb3krr8sthid9h4m
     url: jdbc:mysql://lb3krr8sthid9h4m:f4hap9hvlx1x6atm@d6q8diwwdmy5c9k9.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/irgpxt85n4arkkk5
-    password: ${DB_PASSWORD}
+    password: f4hap9hvlx1x6atm
     jackson:
       serialization:
         FAIL_ON_EMPTY_BEANS: false
