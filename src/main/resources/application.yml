@@ -24,3 +24,5 @@ spring:
 jwt:
   secret: "replace-with-a-very-long-random-secret-at-least-32-chars"
   expiration-ms: 360000000
+server:
+  port: ${PORT:8080}
