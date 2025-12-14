@@ -4,6 +4,7 @@ package knx.planner.project.controller;
 import knx.planner.project.auth.AuthRequest;
 import knx.planner.project.auth.AuthResponse;
 import knx.planner.project.auth.RegisterRequest;
+import knx.planner.project.auth.RegisterResponse;
 import knx.planner.project.entity.User;
 import knx.planner.project.security.JwtService;
 import knx.planner.project.service.AuthService;
@@ -27,16 +28,16 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest req) {
-        Authentication auth = new UsernamePasswordAuthenticationToken(req.email(), req.password());
+        Authentication auth = new UsernamePasswordAuthenticationToken(req.username(), req.password());
         authManager.authenticate(auth);
-        User user = userDetailsService.loadUserByUsername(req.email());
+        User user = userDetailsService.loadUserByUsername(req.username());
         String token = jwtService.generateToken(user);
         return ResponseEntity.ok(new AuthResponse(token));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest req) {
-        AuthResponse resp = authService.register(req);
+    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest req) {
+        RegisterResponse resp = authService.register(req);
         return ResponseEntity.ok(resp);
     }
 }

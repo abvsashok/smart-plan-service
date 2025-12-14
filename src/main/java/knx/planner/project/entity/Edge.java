@@ -8,19 +8,17 @@ import lombok.Setter;
 
 @Entity
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor
+@Table(name = "sh_edge")
 public class Edge {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long uid;
 
-    private String id;
+    private String edgeId;
 
     @Column(columnDefinition = "json")
     private String raw;
 
     private Long projectUid;
 
-//    @ManyToOne
-//    @JoinColumn(name= "project_uid", insertable = false, updatable = false)
-//    private Project project;
 }

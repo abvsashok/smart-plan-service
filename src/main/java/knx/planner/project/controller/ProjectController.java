@@ -2,6 +2,7 @@ package knx.planner.project.controller;
 
 import knx.planner.project.dto.ProjectRequestDto;
 import knx.planner.project.dto.response.ProjectRespDto;
+import knx.planner.project.entity.Project;
 import knx.planner.project.service.ProjectService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,18 +35,27 @@ public class ProjectController {
         return ResponseEntity.ok(this.projectService.getProjects());
     }
 
+//    @GetMapping("/passcode/{passcode}")
+//    public ResponseEntity<List<ProjectRespDto>> getProjectsByPassCode(@PathVariable("passcode") String passcode) {
+//        return ResponseEntity.ok(this.projectService.getProjectsByPasscode(passcode));
+//    }
+
+    @GetMapping("/my-projects")
+    public ResponseEntity<List<ProjectRespDto>> getMyProjects() {
+        return ResponseEntity.ok(this.projectService.getProjects());
+    }
 
 
-    @GetMapping("/data/{id}")
-    public ResponseEntity<?> getProjectDetails(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(this.projectService.getProjectDetails(id));
+
+    @GetMapping("/data/{slug}")
+    public ResponseEntity<?> getProjectDetails(@PathVariable("slug") String slug) {
+        return ResponseEntity.ok(this.projectService.getProjectDetails(slug));
     }
 
     @PostMapping("/save")
     public ResponseEntity<?> createProject(@RequestBody ProjectRequestDto input) {
-        System.out.println("Project Input: ");
-        this.projectService.saveProject(input);
-        return ResponseEntity.ok("Project saved successfully");
+        Project project = this.projectService.saveProject(input);
+        return ResponseEntity.ok(this.projectService.getProjectDetails(project.getSlug()));
     }
 
 

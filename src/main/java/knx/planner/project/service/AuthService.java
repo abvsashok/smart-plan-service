@@ -3,6 +3,7 @@ package knx.planner.project.service;
 import jakarta.transaction.Transactional;
 import knx.planner.project.auth.AuthResponse;
 import knx.planner.project.auth.RegisterRequest;
+import knx.planner.project.auth.RegisterResponse;
 import knx.planner.project.entity.User;
 import knx.planner.project.repository.UserRepository;
 import knx.planner.project.security.JwtService;
@@ -18,7 +19,7 @@ public class AuthService {
     private final JwtService jwtService;
 
     @Transactional
-    public AuthResponse register(RegisterRequest req) {
+    public RegisterResponse register(RegisterRequest req) {
         if (userRepository.findByEmail(req.email()).isPresent()) {
             throw new IllegalArgumentException("Email already in use");
         }
@@ -31,9 +32,9 @@ public class AuthService {
 
         userRepository.save(user);
 
-        var userDetails = new User(user.getEmail(), user.getPassword(), user.getRole());
-        String token = jwtService.generateToken(userDetails);
+//        var userDetails = new User(user.getEmail(), user.getPassword(), user.getRole());
+//        String token = jwtService.generateToken(userDetails);
 
-        return new AuthResponse(token);
+        return new RegisterResponse("User registered successfully");
     }
 }

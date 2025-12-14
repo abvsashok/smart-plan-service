@@ -24,7 +24,7 @@ public class EdgeService {
     }
 
     @Transactional
-    void deleteEdgesByProjectUid(Long projectId) {
-        this.edgeRepo.deleteByProjectId(projectId);
+    void deleteEdgesByProjectUid(Long projectUId) {
+        this.edgeRepo.deleteByProjectId(projectUId);
     }
 }

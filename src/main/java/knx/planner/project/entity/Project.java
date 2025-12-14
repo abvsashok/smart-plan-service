@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "project")
+@Table(name = "sh_project")
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class Project {
 
@@ -37,6 +37,8 @@ public class Project {
 
     private String slug;
 
+    private String passcode;
+
     // No cascade, LAZY fetch to avoid automatic persistence/removal of children.
     @OneToMany(fetch = FetchType.LAZY)
     @JsonIgnore
@@ -47,6 +49,11 @@ public class Project {
     @JsonIgnore
     @JoinColumn(name = "projectUid", insertable = false, updatable = false)
     private List<Edge> edges = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(name = "projectUid", insertable = false, updatable = false)
+    private List<ProjectUser> projectUsers = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

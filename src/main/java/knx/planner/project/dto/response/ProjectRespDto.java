@@ -13,6 +13,8 @@ public class ProjectRespDto {
     private String projectId;
     private String name;
     private String description;
+    private String slug;
+    private String passcode;
 
     private List<Map<String, Object>> nodes;
     private List<Map<String, Object>> edges;

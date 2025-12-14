@@ -24,8 +24,8 @@ public class NodeService {
     }
 
     @Transactional
-    void deleteNodesByProjectId(Long projectId) {
-        this.nodeRepo.deleteByProjectId(projectId);
+    void deleteNodesByProjectId(Long projectUId) {
+        this.nodeRepo.deleteByProjectId(projectUId);
     }
 
 }

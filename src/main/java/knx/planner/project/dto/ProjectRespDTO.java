@@ -5,10 +5,12 @@ import lombok.*;
 import java.util.List;
 import java.util.Map;
 
-@Getter @Setter @Builder
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectRequestDto {
+public class ProjectRespDTO {
 
     private Long uid;
     private String name;
@@ -19,6 +21,6 @@ public class ProjectRequestDto {
 
     List<Map<String, Object>> nodes;
     List<Map<String, Object>> edges;
-    ViewportDto viewport;
 
+    ViewportDto viewport;
 }

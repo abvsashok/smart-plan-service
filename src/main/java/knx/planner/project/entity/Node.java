@@ -8,13 +8,14 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Table(name = "sh_node")
 public class Node {
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long uid;
 
-    private String id;
+    private String nodeId;
 
     @Column(columnDefinition = "json")
     private String raw;
