@@ -26,6 +26,11 @@ public class AuthController {
     private final CustomUserDetailsService userDetailsService;
     private final AuthService authService;
 
+    @GetMapping("/test")
+    public ResponseEntity<?> isAppRunning() {
+        return ResponseEntity.ok("Authentication service is running");
+    }
+
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest req) {
         Authentication auth = new UsernamePasswordAuthenticationToken(req.username(), req.password());
