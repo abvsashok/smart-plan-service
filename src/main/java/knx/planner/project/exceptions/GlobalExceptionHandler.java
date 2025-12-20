@@ -16,12 +16,13 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<GlobalErrorResponse> handleUserNotFound(UsernameNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(GlobalErrorResponse.builder().message(ex.getMessage()).build());
+        System.out.println("Aaaaa" + ex.getMessage());
+        return ResponseEntity.status(404).body(GlobalErrorResponse.builder().message(ex.getMessage()).build());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<GlobalErrorResponse> handleGeneral(Exception ex) {
         System.out.println(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(GlobalErrorResponse.builder().message("An error occurred").build());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(GlobalErrorResponse.builder().message(ex.getMessage()).build());
     }
 }

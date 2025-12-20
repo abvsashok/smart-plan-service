@@ -1,10 +1,11 @@
 package knx.planner.project.security;
 
 
-import lombok.RequiredArgsConstructor;
+import knx.planner.project.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -13,16 +14,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.List;
+
 
 @Configuration
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtFilter jwtFilter;
+    private final CustomUserDetailsService userDetailsService;
+
+    public SecurityConfig(
+            JwtFilter jwtFilter,
+            CustomUserDetailsService userDetailsService
+    ) {
+        this.jwtFilter = jwtFilter;
+        this.userDetailsService = userDetailsService;
+
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -35,6 +43,24 @@ public class SecurityConfig {
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+
+//    @Bean
+//    public DaoAuthenticationProvider daoAuthenticationProvider() {
+//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//        provider.setUserDetailsService(userDetailsService);
+//        provider.setPasswordEncoder(passwordEncoder());
+//        provider.setHideUserNotFoundExceptions(false); // optional: expose UsernameNotFoundException
+//        return provider;
+//    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+//        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        provider.setHideUserNotFoundExceptions(false);
+        return provider;
     }
 
     @Bean
